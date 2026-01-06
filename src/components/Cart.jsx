@@ -1,19 +1,20 @@
-import styles from '../styles/Cart.module.css'
-const Cart = () =>{
-    const montsera = 8
-    const lierre = 10
-    const bouquet = 15
+import '../styles/Cart.css'
 
-    return(
-        <div className={styles.panier}>
-            <h2>Mon Panier:</h2>
-            <ul>
-                <li>Montsera: {montsera}</li>
-                <li>Lierre: {lierre}</li>
-                <li>Bouquet de Fleur: {bouquet}</li>
-            </ul>
-            <p>Total: {montsera+lierre+bouquet}€</p>
-        </div>
-    )
+const Cart = () => {
+  const monsteraPrice = 8;
+  const ivyPrice = 10;
+  const flowerPrice = 15;
+  return (
+    <div>
+      <h2>Panier</h2>
+      <ul>
+        <li>Monstera : {monsteraPrice}€</li>
+        <li>Lierre : {ivyPrice}€</li>
+        <li>Fleurs : {flowerPrice}€</li>
+      </ul>
+      Total : {monsteraPrice + ivyPrice + flowerPrice}€
+    </div>
+  );
 }
-export default Cart
+
+export default Cart;
