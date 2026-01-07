@@ -17,13 +17,13 @@ const ShoppingList = () => {
 				))}
 			</ul>
 			<ul className='lmj-plant-list'>
-				{plantList.map(({id,cover,name,water,light}) => (
+				{plantList.map(({ id, cover, name, water, light }) => (
 					<PlantItem
-					id={id}
-					cover={cover}
-					name={name}
-					water={water}
-					light={light}
+						key={id}
+						cover={cover}
+						name={name}
+						water={water}
+						light={light}
 					/>
 				))}
 			</ul>
