@@ -1,10 +1,12 @@
 import Sun from '../assets/sun.svg'
 import Water from '../assets/water.svg'
 
-const quantityLabel1 = {
-	1:'peu',
-	2:'moderer',
-	3:'beaucoup'
+// Ici, il s'agit d'une manière de faire.
+//Vous auriez aussi pu utiliser une fonction qui retourne l'élément souhaité, ou bien faire directement des conditions
+const quantityLabel = {
+	1: 'peu',
+	2: 'modérément',
+	3: 'beaucoup'
 }
 
 const CareScale = ({ scaleValue, careType }) => {
@@ -17,7 +19,15 @@ const CareScale = ({ scaleValue, careType }) => {
 		)
 
 	return (
-		<div onClick={()=> alert(`cette plante requiert ${quantityLabel1[scaleValue]} ${careType === 'light'? 'de lumiere':'d\'arrosage'}`)}>
+		<div
+			onClick={() =>
+				alert(
+					`Cette plante requiert ${quantityLabel[scaleValue]} ${
+						careType === 'light' ? 'de lumière' : "d'arrosage"
+					}`
+				)
+			}
+		>
 			{range.map((rangeElem) =>
 				scaleValue >= rangeElem ? (
 					<span key={rangeElem.toString()}>{scaleType}</span>
