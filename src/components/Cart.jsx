@@ -17,16 +17,67 @@ const Cart = ({cart, updateCart,activeCategory}) => {
         alert(`j'aurai ${total} a payer`)
 
     },[total,activeCategory])
-    
+
     useEffect(()=>{
         document.title = `LMJ: ${total} d'achats`
     },[total])
+
+    // partie pour stocker le panier je vais utiliser le localStorage et modifier mon objet en texte
+    // localStorage.setItem('ThemeDark', 'true');
+    //  console.log(localStorage)
+
+    // faire un une fonction qui sauvegarde le panier avec le timer
+
+    const Saved=(cart)=>{
+       
+        const data = {
+            panier : cart,
+            expiratedCart : Date.now()+2*60*1000
+        }
+        console.log("les donner du panier + date d'expiration: ",data)
+
+        localStorage.setItem("panierWithExpiration",JSON.stringify(data))
+        
+        // Vérifier que les données sont bien stockées
+        const stored = localStorage.getItem("panierWithExpiration")
+        console.log("date d'expiration + panier en text et localStorage: ", stored)
+    }
+    
+    // faire une fonction pour lire le panier
+
+    const Read=()=>{
+        const saved = localStorage.getItem("panierWithExpiration")
+
+        if(!saved) return []
+
+        const data = JSON.parse(saved)
+         console.log("data vers objet:",data)
+        if(Date.now() > data.expiratedCart){
+               localStorage.removeItem("panierWithExpiration")
+                console.log("Panier expiré, données supprimées du localStorage")
+                return []
+        }
+        return data.panier
+    }
+  
+    const [panier, setPanier]= useState(Read)
+
+    useEffect(()=>{
+        if(cart.length > 0) {
+            Saved(cart)
+        }
+    },[cart])
+
+    // const monPanier = cart
+    // const transformerText = JSON.stringify(monPanier)
+    // const backObj= JSON.parse(transformerText)
 
     return isOpen ? (
         <div className='lmj-cart'>
             <button
                 className='lmj-cart-toggle-button'
                 onClick={() => setIsOpen(false)}
+                
             >
                 Fermer
             </button>
@@ -42,6 +93,7 @@ const Cart = ({cart, updateCart,activeCategory}) => {
                     </ul>
                     <h3>Total :{total}€</h3>
                     <button onClick={() => updateCart([])}>Vider le panier</button>
+                  
                 </div>
             ) : (
                 <div>Votre panier est vide</div>
